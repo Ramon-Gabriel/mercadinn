@@ -12,6 +12,7 @@ botao.addEventListener('click', () => {
     }
 
     if (login === usuarioSalvo.login && senha === usuarioSalvo.senha) {
+        localStorage.setItem("usuarioLogado", JSON.stringify(usuarioSalvo)); // <-- aqui!
         window.location.href = "home.html";
     } else {
         alert("Usuário ou senha inválidos.");

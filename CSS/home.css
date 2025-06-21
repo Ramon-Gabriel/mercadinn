@@ -1,0 +1,171 @@
+:root {
+  --roxo: #8e44ad;
+  --preto: #121212;
+  --cinza-claro: #ccc;
+  --branco: #f5f5f5;
+}
+
+/* Reset básico */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--preto);
+  color: var(--branco);
+  padding-top: 80px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--preto) !important;
+  border-bottom: 1px solid var(--roxo);
+}
+
+.text-purple {
+  color: var(--roxo) !important;
+}
+
+.btn-outline-purple {
+  border-color: var(--roxo);
+  color: var(--roxo);
+}
+
+.btn-outline-purple:hover {
+  background-color: var(--roxo);
+  color: white;
+}
+
+/* Produtos em grid responsivo */
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.produto {
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.produto:hover {
+  transform: scale(1.02);
+  border-color: var(--roxo);
+}
+
+.produto img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+}
+
+/* Carrinho lateral */
+.painel-carrinho {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 300px;
+  background-color: #1e1e1e;
+  border: 1px solid var(--roxo);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  display: none;
+  z-index: 1000;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.painel-carrinho button {
+  width: 100%;
+}
+
+#itens-carrinho li {
+  margin-bottom: 10px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#itens-carrinho li button {
+  margin-left: 10px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+.btn-add-carrinho {
+  background: linear-gradient(135deg, #8e44ad, #6f379a);
+  color: #f5f5f5;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(142, 68, 173, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-add-carrinho:hover {
+  background: linear-gradient(135deg, #6f379a, #8e44ad);
+  box-shadow: 0 6px 12px rgba(111, 55, 154, 0.6);
+}
+
+.btn-purple-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8e44ad, #6f379a);
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.btn-purple-circle:hover {
+  box-shadow: 0 0 8px #8e44ad;
+}
+
+/* Painel do usuário (similar ao painel do carrinho) */
+#painelUsuario {
+  position: fixed;
+  top: 80px;
+  right: 330px; /* Lado esquerdo do painel do carrinho */
+  width: 250px;
+  background-color: #1e1e1e;
+  border: 1px solid var(--roxo);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  display: none;
+  z-index: 1100;
+  box-shadow: 0 0 15px var(--roxo);
+}
+
+#btnSair {
+  background-color: crimson;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+#btnSair:hover {
+  background-color: #b0003a;
+}

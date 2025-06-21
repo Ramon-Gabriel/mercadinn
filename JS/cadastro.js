@@ -10,9 +10,13 @@ botao.addEventListener('click', () => {
     }
 
     const usuario = { login, senha };
+
     localStorage.setItem("usuarioCadastrado", JSON.stringify(usuario));
+    localStorage.setItem("usuarioLogado", JSON.stringify(usuario)); // <-- aqui!
 
     alert("Usuário cadastrado com sucesso!");
     document.getElementById('login').value = '';
     document.getElementById('senha').value = '';
+
+    window.location.href = "home.html"; // <-- redireciona para a home
 });
