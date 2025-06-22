@@ -9,14 +9,24 @@ botao.addEventListener('click', () => {
         return;
     }
 
-    const usuario = { login, senha };
+    // Recupera lista de usuários existentes
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    localStorage.setItem("usuarioCadastrado", JSON.stringify(usuario));
-    localStorage.setItem("usuarioLogado", JSON.stringify(usuario)); // <-- aqui!
+    // Verifica se o login já está cadastrado
+    const usuarioExistente = usuarios.find(u => u.login === login);
+    if (usuarioExistente) {
+        alert("Este nome de usuário já está em uso.");
+        return;
+    }
+
+    // Cria e adiciona novo usuário
+    const novoUsuario = { login, senha };
+    usuarios.push(novoUsuario);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+    // Salva o usuário logado
+    localStorage.setItem("usuarioLogado", JSON.stringify(novoUsuario));
 
     alert("Usuário cadastrado com sucesso!");
-    document.getElementById('login').value = '';
-    document.getElementById('senha').value = '';
-
-    window.location.href = "home.html"; // <-- redireciona para a home
+    window.location.href = "HTML/home.html";
 });

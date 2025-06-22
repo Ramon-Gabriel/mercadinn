@@ -4,15 +4,12 @@ botao.addEventListener('click', () => {
     const login = document.getElementById('login').value;
     const senha = document.getElementById('senha').value;
 
-    const usuarioSalvo = JSON.parse(localStorage.getItem("usuarioCadastrado"));
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    if (!usuarioSalvo) {
-        alert("Nenhum usuário cadastrado. Cadastre-se primeiro.");
-        return;
-    }
+    const usuarioEncontrado = usuarios.find(u => u.login === login && u.senha === senha);
 
-    if (login === usuarioSalvo.login && senha === usuarioSalvo.senha) {
-        localStorage.setItem("usuarioLogado", JSON.stringify(usuarioSalvo)); // <-- aqui!
+    if (usuarioEncontrado) {
+        localStorage.setItem("usuarioLogado", JSON.stringify(usuarioEncontrado));
         window.location.href = "home.html";
     } else {
         alert("Usuário ou senha inválidos.");

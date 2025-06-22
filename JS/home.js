@@ -9,7 +9,9 @@ const btnUsuario = document.getElementById('btnUsuario');
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 let produtosCarregados = [];
 
-// Exibir produtos da API
+// ==============================
+// EXIBIR PRODUTOS
+// ==============================
 function exibirProdutos() {
   fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
@@ -30,7 +32,9 @@ function exibirProdutos() {
     });
 }
 
-// Adicionar ao carrinho
+// ==============================
+// EVENTO - ADICIONAR AO CARRINHO
+// ==============================
 document.addEventListener('click', function (e) {
   if (e.target.classList.contains('btn-add-carrinho')) {
     const idProduto = parseInt(e.target.dataset.id);
@@ -42,10 +46,23 @@ document.addEventListener('click', function (e) {
   }
 });
 
+// ==============================
+// FUNÇÕES DO CARRINHO
+// ==============================
 function adicionarAoCarrinho(produto) {
   carrinho.push(produto);
   salvarCarrinho();
   atualizarCarrinho();
+}
+
+function removerItem(index) {
+  carrinho.splice(index, 1);
+  salvarCarrinho();
+  atualizarCarrinho();
+}
+
+function salvarCarrinho() {
+  localStorage.setItem('carrinho', JSON.stringify(carrinho));
 }
 
 function atualizarCarrinho() {
@@ -65,16 +82,6 @@ function atualizarCarrinho() {
   totalSpan.textContent = total.toFixed(2);
 }
 
-function removerItem(index) {
-  carrinho.splice(index, 1);
-  salvarCarrinho();
-  atualizarCarrinho();
-}
-
-function salvarCarrinho() {
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
-}
-
 function finalizarCompra() {
   if (carrinho.length === 0) {
     alert("Seu carrinho está vazio.");
@@ -88,7 +95,9 @@ function finalizarCompra() {
   painelCarrinho.style.display = 'none';
 }
 
-// Abrir/Fechar carrinho
+// ==============================
+// EVENTOS - ABRIR/FECHAR CARRINHO
+// ==============================
 btnAbrirCarrinho.addEventListener('click', () => {
   painelCarrinho.style.display = painelCarrinho.style.display === 'block' ? 'none' : 'block';
 });
@@ -96,17 +105,21 @@ btnFecharCarrinho.addEventListener('click', () => {
   painelCarrinho.style.display = 'none';
 });
 
-// Exibir inicial do usuário
+// ==============================
+// USUÁRIO - EXIBIR INICIAL
+// ==============================
 function carregarUsuario() {
-  const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioCadastrado'));
-  if (usuarioSalvo && usuarioSalvo.login) {
-    btnUsuario.textContent = usuarioSalvo.login.charAt(0).toUpperCase();
+  const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+  if (usuarioLogado && usuarioLogado.login) {
+    btnUsuario.textContent = usuarioLogado.login.charAt(0).toUpperCase();
   } else {
     btnUsuario.style.display = 'none';
   }
 }
 
-// Painel do usuário
+// ==============================
+// PAINEL DO USUÁRIO
+// ==============================
 let painelUsuario = document.getElementById('painelUsuario');
 if (!painelUsuario) {
   painelUsuario = document.createElement('div');
@@ -115,14 +128,19 @@ if (!painelUsuario) {
 }
 
 btnUsuario.addEventListener('click', () => {
-  const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioCadastrado'));
+  const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+  if (!usuarioLogado) {
+    alert("Nenhum usuário logado.");
+    return;
+  }
 
   if (painelUsuario.style.display === 'block') {
     painelUsuario.style.display = 'none';
   } else {
     painelUsuario.innerHTML = `
       <h5>Usuário Logado</h5>
-      <p><strong>${usuarioSalvo.login}</strong></p>
+      <p><strong>${usuarioLogado.login}</strong></p>
       <button id="btnFecharUsuario" class="btn btn-outline-light w-100 mb-2">Fechar</button>
       <button id="btnSair" class="btn btn-danger w-100">Sair</button>
     `;
@@ -133,15 +151,17 @@ btnUsuario.addEventListener('click', () => {
     });
 
     document.getElementById('btnSair').addEventListener('click', () => {
-      localStorage.removeItem("usuarioCadastrado");
-      window.location.href = "cadastro.html";
+      localStorage.removeItem("usuarioLogado");
+      window.location.href = "../index.html";
     });
 
     painelCarrinho.style.display = 'none';
   }
 });
 
-// Inicialização
+// ==============================
+// INICIALIZAÇÃO
+// ==============================
 carregarUsuario();
 exibirProdutos();
 atualizarCarrinho();
